@@ -25,13 +25,13 @@
             updateNepaliTime(); 
             setInterval(updateNepaliTime, 1000); 
 
-            // --- Weather Update Function ---
+            
             async function fetchWeather() {
-                const city = 'Itahari';
-                const apiKey = 'E5ESYMXFX67Q4VXCCBX9P5U5P'; // Your Visual Crossing Weather API key
-                const apiUrl = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=${apiKey}&contentType=json`;
+                const kho = 'Itahari';
+                const jpt = 'E5ESYMXFX67Q4VXCCBX9P5U5P'; 
+                const apiUrl = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${kho}?unitGroup=metric&key=${jpt}&contentType=json`;
                 
-                weatherInfoElement.innerHTML = `<i class="fas fa-spinner fa-spin mr-1"></i>Loading weather...`;
+                weatherInfoElement.innerHTML = `<i class="fas fa-spinner fa-spin mr-1"></i>fetching`;
                 
                 try {
                     const response = await fetch(apiUrl);
