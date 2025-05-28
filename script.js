@@ -215,7 +215,7 @@
                 
                 if (cmdLower === 'repo') { 
                     responseHTML = commands[cmdLower];
-                    window.open('https://github.com/anish-thapa/terminal-portfolio', '_blank'); 
+                    window.open('https://github.com/anish-thapa/terminal', '_blank'); 
                 } else if (commands[cmdLower]) {
                     responseHTML = commands[cmdLower];
                 } else if (cmd) { 
