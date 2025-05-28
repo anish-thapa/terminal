@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anish Thapa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ... (ALL YOUR EXISTING CSS FROM PREVIOUS FULL EXAMPLES) ... */
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Fira Code', monospace;
+            background-color: #011627; 
+            color: #d6deeb; 
+        }
+        
+        .terminal {
+            background-color: rgba(1, 22, 39, 0.9); 
+            border: 1px solid #1d3b53; 
+            box-shadow: 0 0 25px rgba(29, 59, 83, 0.6); 
+        }
+        
+        .terminal-header {
+            background-color: #011627; 
+        }
+
+        .traffic-light-dot {
+            transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
+        }
+        .traffic-light-dot:hover {
+            transform: scale(1.2);
+            filter: brightness(1.2);
+        }
+
+        .prompt {
+            color: #7fdbca; 
+        }
+        
+        .command {
+            color: #82aaff; 
+        }
+        
+        .command-input:focus {
+            outline: none;
+        }
+
+        .blinking-cursor {
+            color: #d6deeb; 
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        .ascii-art {
+            color: #c3e88d; 
+            white-space: pre;
+            text-align: left; 
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+            animation: fadeInUp 0.5s ease-out 0.2s forwards; 
+            opacity: 0;
+        }
+
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .1em; 
+            animation: typing 3.5s steps(40, end) 0.5s forwards, fadeInUpDelayed 3.5s ease-out 0.5s forwards;
+            opacity: 0;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+                
+        a {
+            color: #82aaff;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .terminal-content::-webkit-scrollbar {
+            display: none; 
+        }
+        .terminal-content {
+            -ms-overflow-style: none;  
+            scrollbar-width: none;  
+        }
+        
+        .output-title {
+            color: #2ecc71; 
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        .animate-fadeInUp-delayed { 
+            animation: fadeInUp 0.5s ease-out 4s forwards; 
+            opacity: 0;
+        }
+         .animate-fadeInUp-immediate { 
+            animation: fadeInUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+         @keyframes fadeInUpDelayed { 
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            10% { 
+                 opacity: 0;
+                 transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="terminal w-full max-w-4xl rounded-lg overflow-hidden">
+        <!-- Terminal Header -->
+        <div class="terminal-header px-4 py-2 flex items-center">
+            <div class="flex space-x-2 mr-4">
+                <div class="w-3 h-3 rounded-full bg-red-500 traffic-light-dot"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500 traffic-light-dot"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500 traffic-light-dot"></div>
+            </div>
+            <div class="text-gray-400 text-sm">anish-thapa's-portfolio</div>
+        </div>
+        
+        <!-- Terminal Body -->
+        <div id="terminal-body" class="terminal-content p-4 md:p-6 overflow-auto" style="max-height: 80vh;"> 
+            <!-- Top Info Bar: Time and Weather -->
+            <div id="top-info-bar" class="flex justify-between items-center text-xs text-gray-400 mb-3 px-1 animate-fadeInUp-immediate">
+                <div id="nepali-time" class="text-left">--:--:-- --</div>
+                <div id="weather-info" class="text-right">
+                    <i class="fas fa-spinner fa-spin mr-1"></i>Loading weather...
+                </div>
+            </div>
+            
+          
+
+            <!-- Initial greeting -->
+            <div class="mb-6">
+                <div class="typewriter text-xl md:text-2xl font-bold text-green-400 mb-2">
+                    Hello World! I'm Anish Thapa
+                </div>
+                <div class="text-gray-400 text-sm mb-4 animate-fadeInUp-delayed">
+                    Welcome to my terminal portfolio. Type 'help' to see available commands.
+                </div>
+            </div>
+            
+            <!-- Output area where commands and results will appear -->
+            <div id="output-container">
+                <!-- Default output when page loads -->
+                <div class="mb-4 animate-fadeInUp-delayed">
+                    <div class="output-title mb-2">Anish Thapa</div>
+                    <div class="text-gray-400 mb-1">📍 Itahari, Nepal</div>
+                    <div class="text-gray-400 mb-1">🎓 BSc Hons Computer System Engineering (Current)</div>
+                    <div class="text-gray-400 mb-1">💻 Frontend Developer</div>
+                    <div class="text-gray-400 mb-4">🔗 <a href="https://linkedin.com/in/anishxthapa" target="_blank">Connect with Me</a></div>
+                    
+                    <div class="text-sm text-gray-400">
+                        Type <span class="command">help</span> to see available commands
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Command line input will be dynamically added here by JS -->
+        </div>
+        
+        <!-- Hidden command templates -->
+        <div class="hidden">
+             <!-- Help command -->
+             <div id="help-command">
+                <div class="mb-4">
+                    <div class="output-title mb-2">Available commands:</div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                        <div><span class="command">help</span> - Show this help message</div>
+                        <div><span class="command">about</span> - About me</div>
+                        <div><span class="command">skills</span> - My technical skills</div>
+                        <div><span class="command">projects</span> - My projects</div>
+                        <div><span class="command">education</span> - My education</div>
+                        <div><span class="command">contact</span> - How to contact me</div>
+                        <div><span class="command">clear</span> - Clear the terminal</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- About command -->
+            <div id="about-command">
+                <div class="mb-4">
+                    <div class="output-title mb-2">About Anish:</div>
+                    <div class="text-gray-400">
+                        <p class="mb-2">I'm a passionate frontend developer from Itahari, Nepal currently pursuing my BSc Hons in Computer System Engineering.</p>
+                        <p>I love creating beautiful, functional web applications with clean code and great user experiences. When I'm not coding, you can find me exploring new technologies or contributing to open source projects.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Skills command -->
+            <div id="skills-command">
+                <div class="mb-4">
+                    <div class="output-title mb-2">Technical Skills:</div>
+                    <div class="space-y-2">
+                        <div class="text-gray-400 flex items-center">
+                            <i class="fa-solid fa-layer-group fa-fw mr-3 text-blue-400 text-lg"></i> MERN Stack (MongoDB, Express.js, React, Node.js)
+                        </div>
+                        <div class="text-gray-400 flex items-center">
+                            <i class="fa-brands fa-php fa-fw mr-3 text-purple-400 text-lg"></i> PHP & <i class="fa-solid fa-database fa-fw mx-1 text-orange-400"></i> MySQL
+                        </div>
+                        <div class="text-gray-400 flex items-center">
+                            <i class="fa-brands fa-js fa-fw mr-3 text-yellow-400 text-lg"></i> JavaScript / TypeScript
+                        </div>
+                        <div class="text-gray-400 flex items-center">
+                            <i class="fa-brands fa-html5 fa-fw mr-1 text-orange-500 text-lg"></i>
+                            <i class="fa-brands fa-css3-alt fa-fw mr-3 text-blue-500 text-lg"></i> HTML/CSS (Tailwind CSS, SASS <i class="fa-brands fa-sass fa-fw ml-1 text-pink-400"></i>)
+                        </div>
+                        <div class="text-gray-400 flex items-center">
+                            <i class="fa-brands fa-git-alt fa-fw mr-3 text-red-500 text-lg"></i> Git & <i class="fa-brands fa-github fa-fw ml-1 text-gray-300"></i> GitHub
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projects command -->
+            <div id="projects-command">
+                <div class="mb-4">
+                    <div class="output-title mb-2">My Projects:</div>
+                    
+                    <div class="mb-4">
+                        <div class="text-gray-400 font-medium mb-1">1. Hamro Hotel (Ecommerce)</div>
+                        <div class="text-gray-400 text-sm mb-1">
+                            A full-stack hotel booking platform built with MERN stack. Features user authentication, room booking, payment integration (dummy), and admin dashboard.
+                        </div>
+                        <div class="text-gray-400 text-sm mb-3">
+                           Tech: React, Node.js, Express, MongoDB, TailwindCSS
+                        </div>
+                        
+                        <div class="text-gray-400 font-medium mb-1">2. TrackYourExpenses</div>
+                        <div class="text-gray-400 text-sm mb-1">
+                            An expense tracking application with data visualization. Built with PHP and MySQL.
+                        </div>
+                        <div class="text-gray-400 text-sm mb-3">
+                            🔗 <a href="https://trackyourexpenses.wuaze.com" target="_blank">trackyourexpenses.wuaze.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Education command -->
+            <div id="education-command">
+                <div class="mb-4">
+                    <div class="output-title mb-2">Education:</div>
+                    
+                    <div class="text-gray-400 mb-1">
+                        <span class="font-medium">BSc (Hons) Computer System Engineering</span> - Current
+                    </div>
+                    <div class="text-gray-400 text-sm mb-3">
+                        ISMT College, Biratnagar (Affiliated with University of Sunderland, UK)
+                        <br>Focusing on software engineering, system design, networking, and web technologies.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact command -->
+            <div id="contact-command">
+                <div class="mb-4">
+                    <div class="output-title mb-2">Contact Me:</div>
+                    
+                    <div class="text-gray-400 mb-1">
+                        <i class="fab fa-linkedin mr-2"></i> LinkedIn: <a href="https://linkedin.com/in/anishxthapa" target="_blank">in/anishxthapa</a>
+                    </div>
+                    <div class="text-gray-400 mb-1">
+                        <i class="fab fa-github mr-2"></i> GitHub: <a href="https://github.com/anish-thapa" target="_blank">anish-thapa</a>
+                    </div>
+                    <div class="text-gray-400 mb-1">
+                        <i class="fas fa-envelope mr-2"></i> Email: <a href="mailto:iam.anisht@gmail.com">iam.anisht@gmail.com</a>
+                    </div>
+                    <div class="text-gray-400">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Location: Itahari, Nepal
+                    </div>
+                </div>
+            </div>
+
+            <div id="repo-command">
+                <div class="mb-4">
+                    <div class="text-gray-400">
+                        Redirecting to GitHub repository...
+                    </div>
+                </div>
+            </div>
+            
+            <div id="error-command">
+                <div class="text-red-400 mb-4">
+                    Command not found: <span id="error-cmd-name"></span>. Type 'help' to see available commands.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+  <script src="script.js"></script>
+</html>
